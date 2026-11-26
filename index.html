@@ -6602,55 +6602,84 @@ if(id==="DV022"){var pills=dv.querySelector(".pills");if(pills&&!dv.querySelecto
     var cv=doc.createElement("canvas"); cv.width=W; cv.height=H;
     var x=cv.getContext("2d"); if(!x) return null;
     var SANS="\"Be Vietnam Pro\", system-ui, sans-serif", SERIF="Lora, Georgia, serif";
-    var TEAL="#0F4C4C", INK="#1E2A2A", MUT="#5E6B68", CORAL="#E2725B", CORALD="#B34A2E", SUN="#E9B44C", LINE="#C9BFA5";
+    var TEAL="#0F4C4C", INK="#1E2A2A", MUT="#5E6B68", CORAL="#E2725B", CORALD="#B34A2E", SUN="#E9B44C", GOLD="#8A6D1F", GHOST="#B4AC99", GHOSTTX="#A39C8B";
+    /* góc nghiêng cố định của 16 con dấu, cho giống đóng tay */
+    var ANG=[-6,4,-3,7,-8,2,-5,6,-2,8,-7,3,-4,5,-9,9];
+    var R=72;
+    /* vòng tròn hơi lượn sóng kiểu đóng tay; độ lượn cố định theo từng dấu */
+    function ppWob(cx,cy,r,seed,amp){
+      x.beginPath();
+      var a,rr,px,py,step=Math.PI/30;
+      for(a=0;a<=Math.PI*2+0.001;a+=step){
+        rr=r+Math.sin(a*3+seed)*amp+Math.sin(a*5+seed*1.7)*amp*0.6;
+        px=cx+Math.cos(a)*rr; py=cy+Math.sin(a)*rr;
+        if(a===0) x.moveTo(px,py); else x.lineTo(px,py);
+      }
+      x.closePath();
+    }
     x.fillStyle="#F7F2E7"; x.fillRect(0,0,W,H);
-    ppRR(x,18,18,W-36,H-36,28); x.fillStyle="#FFFDF7"; x.fill(); x.lineWidth=2; x.strokeStyle="#D9D0BA"; x.stroke();
+    /* trang giấy hộ chiếu: góc vuông, viền đôi */
+    x.fillStyle="#FFFDF7"; x.fillRect(18,18,W-36,H-36);
+    x.lineWidth=3; x.strokeStyle=TEAL; x.strokeRect(20,20,W-40,H-40);
+    x.lineWidth=1; x.strokeStyle="#D9D0BA"; x.strokeRect(28,28,W-56,H-56);
     x.textAlign="center"; x.textBaseline="alphabetic";
+    x.fillStyle=TEAL; x.font="600 18px "+SANS;
+    x.fillText("N I N H   V Â N   L O C A L S", W/2, 66);
     x.fillStyle=TEAL; x.font="700 62px "+SERIF;
-    x.fillText("Hộ chiếu làng", W/2, 116);
+    x.fillText("Hộ chiếu làng", W/2, 132);
     x.fillStyle=INK; x.font="700 40px "+SANS;
-    x.fillText("Đã đóng dấu "+n+" / 16", W/2, 182);
+    x.fillText("Đã đóng dấu "+n+" / 16", W/2, 196);
     var tier=ppTierName(n);
     x.fillStyle=TEAL; x.font="600 31px "+SANS;
-    x.fillText(tier?("Bậc hiện tại: "+tier):("Còn "+(4-n)+" dấu nữa là Khách quen của làng"), W/2, 232);
+    x.fillText(tier?("Bậc hiện tại: "+tier):("Còn "+(4-n)+" dấu nữa là Khách quen của làng"), W/2, 244);
     var bw=W-2*M-72, bx=(W-bw)/2;
-    ppRR(x,bx,262,bw,16,8); x.fillStyle="#EFE8D6"; x.fill();
+    ppRR(x,bx,272,bw,16,8); x.fillStyle="#EFE8D6"; x.fill();
     if(n>0){
       var gr=x.createLinearGradient(bx,0,bx+bw,0);
       gr.addColorStop(0,"#267A78"); gr.addColorStop(0.55,SUN); gr.addColorStop(1,CORAL);
-      ppRR(x,bx,262,Math.max(16,bw*n/16),16,8); x.fillStyle=gr; x.fill();
+      ppRR(x,bx,272,Math.max(16,bw*n/16),16,8); x.fillStyle=gr; x.fill();
     }
     TEM_IDS.forEach(function(id,i){
       var col=i%COLS, row=(i/COLS)|0, cx=M+col*(CW+GAP), cy=HEAD+row*(CH+GAP), midx=cx+CW/2;
       var state=st.photo[id]==="stamped"?"photo":(st.tick[id]?"got":(st.photo[id]==="ticked"?"ticked":"none"));
       var gotLike=(state==="got"||state==="photo");
-      ppRR(x,cx,cy,CW,CH,18);
-      x.fillStyle=gotLike?"#FBE3D9":(state==="ticked"?"#FCF3D7":"#FFFFFF"); x.fill();
-      x.lineWidth=2.5;
-      if(state==="none"){ x.setLineDash([7,6]); x.strokeStyle=LINE; } else { x.setLineDash([]); x.strokeStyle=(state==="ticked"?SUN:CORAL); }
-      x.stroke(); x.setLineDash([]);
-      var lab=labels[id], hasImg=(state==="photo"&&imgs[id]), labelY;
+      var lab=labels[id], hasImg=(state==="photo"&&imgs[id]);
+      var scy=cy+82, seed=i*1.37+0.6;
+      var inkCol=gotLike?TEAL:(state==="ticked"?GOLD:GHOST);
       if(hasImg){
-        var im=imgs[id].im, iw=im.naturalWidth||im.width, ih=im.naturalHeight||im.height, sc=Math.max(CW/iw,150/ih), dw=iw*sc, dh=ih*sc;
-        x.save(); ppRR(x,cx,cy,CW,CH,18); x.clip();
-        x.drawImage(im, cx+(CW-dw)/2, cy+(150-dh)/2, dw, dh);
+        var im=imgs[id].im, iw=im.naturalWidth||im.width, ih=im.naturalHeight||im.height, sq=(R-3)*2, sc=Math.max(sq/iw,sq/ih), dw=iw*sc, dh=ih*sc;
+        x.save(); x.beginPath(); x.arc(midx,scy,R-3,0,Math.PI*2); x.clip();
+        x.drawImage(im, midx-dw/2, scy-dh/2, dw, dh);
         x.restore();
-        ppRR(x,cx,cy,CW,CH,18); x.lineWidth=2.5; x.strokeStyle=CORAL; x.stroke();
-        labelY=cy+196;
-      } else {
-        var icy=cy+76;
-        x.beginPath(); x.arc(midx,icy,34,0,Math.PI*2);
-        if(gotLike){ x.fillStyle=CORAL; x.fill(); }
-        else if(state==="ticked"){ x.fillStyle=SUN; x.fill(); }
-        else { x.fillStyle="#FFFDF7"; x.fill(); x.lineWidth=2; x.strokeStyle=LINE; x.stroke(); }
-        x.fillStyle=gotLike?"#FFF6EC":(state==="ticked"?INK:MUT);
-        x.font="800 19px "+SANS;
-        x.fillText(lab.ic||"", midx, icy+7);
-        labelY=cy+146;
       }
+      /* con dấu mộc tròn, xoay nghiêng cố định theo từng dấu */
+      x.save(); x.translate(midx,scy); x.rotate((ANG[i]||0)*Math.PI/180);
+      if(state!=="none"){
+        x.save(); x.globalAlpha=0.16; x.lineWidth=7; x.strokeStyle=inkCol;
+        ppWob(0,0,R+5,seed,1.4); x.stroke(); x.restore();
+      }
+      if(state==="none") x.setLineDash([7,6]);
+      x.lineWidth=3; x.strokeStyle=inkCol;
+      ppWob(0,0,R,seed,1.4); x.stroke();
+      x.lineWidth=1.2;
+      ppWob(0,0,R-9,seed+2.1,1.1); x.stroke();
+      x.setLineDash([]);
+      if(!hasImg){
+        x.fillStyle=inkCol;
+        x.beginPath(); x.arc(0,-40,3.5,0,Math.PI*2); x.fill();
+        x.beginPath(); x.arc(0,40,3.5,0,Math.PI*2); x.fill();
+        var fs=27;
+        x.font="800 "+fs+"px "+SANS;
+        while(fs>15&&x.measureText(lab.ic||"").width>110){ fs-=2; x.font="800 "+fs+"px "+SANS; }
+        x.fillStyle=(state==="none")?GHOSTTX:inkCol;
+        x.textBaseline="middle";
+        x.fillText(lab.ic||"", 0, 1);
+        x.textBaseline="alphabetic";
+      }
+      x.restore();
       x.fillStyle=INK; x.font="600 22px "+SANS;
       var lines=ppWrap(x, lab.label, CW-18).slice(0,3), li;
-      for(li=0;li<lines.length;li++) x.fillText(lines[li], midx, labelY+li*28);
+      for(li=0;li<lines.length;li++) x.fillText(lines[li], midx, cy+190+li*28);
       x.font="600 19px "+SANS;
       x.fillStyle=state==="none"?MUT:(state==="ticked"?"#8A6D1F":CORALD);
       x.fillText(state==="photo"?"Đóng dấu bằng ảnh":(state==="got"?"Đã đóng dấu":(state==="ticked"?"Đã tick · chờ ảnh":"Chưa đóng dấu")), midx, cy+CH-20);
