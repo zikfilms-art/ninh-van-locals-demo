@@ -6,6 +6,13 @@
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="data:," />
     <title>“Đầm Vân” — Tạp chí của làng biển Ninh Vân</title>
+    <meta name="description" content="Cẩm nang cộng đồng về lưu trú, ăn uống, trải nghiệm, di chuyển, đời sống địa phương và thông tin thực tế tại Ninh Vân, Khánh Hòa." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="“Đầm Vân” — Tạp chí của làng biển Ninh Vân" />
+    <meta property="og:description" content="Cẩm nang cộng đồng về lưu trú, ăn uống, trải nghiệm, di chuyển, đời sống địa phương và thông tin thực tế tại Ninh Vân, Khánh Hòa." />
+    <meta property="og:image" content="https://www.ninhvanlocals.com/og-cover.jpg" />
+    <meta property="og:url" content="https://www.ninhvanlocals.com/" />
+    <link rel="canonical" href="https://www.ninhvanlocals.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -451,7 +458,7 @@
 #nvlDetail .cover-empty svg{width:34px;height:34px}
 #nvlDetail .back{position:absolute;z-index:2;top:max(12px,env(safe-area-inset-top));left:12px;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px 0 12px;border:0;border-radius:22px;background:rgba(247,242,231,.94);color:var(--teal);font:600 14px/1 var(--sans);text-decoration:none;cursor:pointer} /* [bổ sung ngoặc ở max()] */
 #nvlDetail .back svg{width:18px;height:18px}
-#nvlDetail .strip{display:flex;gap:8px;overflow-x:auto;padding:10px 20px 0;scrollbar-width:none}
+#nvlDetail .strip{display:flex;gap:8px;overflow-x:auto;padding:10px 20px 0;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,#000 88%,transparent 100%);mask-image:linear-gradient(to right,#000 88%,transparent 100%)}
 #nvlDetail .strip::-webkit-scrollbar{display:none}
 #nvlDetail .strip button{flex:none;width:64px;height:64px;padding:0;border:0;border-radius:8px;overflow:hidden;background:var(--cream-2);cursor:pointer}
 #nvlDetail .strip img{width:100%;height:100%;object-fit:cover}
@@ -460,7 +467,7 @@
 #nvlDetail h1.d{font:600 28px/1.2 var(--serif);color:var(--teal);margin:0 0 10px}
 #nvlDetail .lead{margin:0 0 20px;font-size:16px;overflow-wrap:anywhere}
 #nvlDetail .facts{margin:0 0 18px;border-top:1px solid var(--line)}
-#nvlDetail .fact{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+#nvlDetail .fact{display:grid;grid-template-columns:112px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
 #nvlDetail .fact dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px}
 #nvlDetail .fact dd{margin:0;font-size:15.5px;overflow-wrap:anywhere;white-space:pre-line}
 #nvlDetail .fact dd.todo{color:var(--muted);font-style:italic}
@@ -1642,7 +1649,6 @@ window.NVL_DATA_GIFT={"dich_vu":[{"id":"DV076","loai":"Sản vật địa phươ
     </section>
 <section class="spread v50" id="ninh-van-xanh" style="padding-top:10px">
   <div class="folio rv"><span>Ninh Vân Xanh</span><span class="pgno">Trang 21B · 02</span></div>
-  <p class="v50-soon">English version coming soon.</p>
   <p class="kicker rv">Ninh Vân Xanh</p>
   <h2 class="title rv">Ninh Vân Xanh</h2>
   <p class="v50-lede rv">Những việc xanh và việc giữ gìn biển, núi, bãi đá của làng, lấy từ nội dung đã có trên trang web của làng. Đây là thực hành được ghi nhận, không phải chứng nhận chính thức.</p>
@@ -2035,7 +2041,6 @@ window.NVL_DATA_GIFT={"dich_vu":[{"id":"DV076","loai":"Sản vật địa phươ
 
 <section class="spread v50" id="gop-y" style="padding-top:10px">
   <div class="folio rv"><span>Góp ý &amp; Góp chuyện</span><span class="pgno">Trang 28</span></div>
-  <p class="v50-soon">English version coming soon.</p>
   <p class="kicker rv">Góp ý &amp; Góp chuyện</p>
   <h2 class="title rv">Góp ý &amp; Góp chuyện</h2>
   <p class="v50-lede rv">Bạn thấy chỗ nào chưa đúng, hay có một câu chuyện về làng muốn kể? Viết cho tụi mình ở đây, không cần đăng nhập. Nội dung gửi đi để đội ngũ xem lại, không hiển thị công khai ngay.</p>
@@ -7440,7 +7445,7 @@ function lang(l){var on=l==="en";document.documentElement.setAttribute("data-lan
 (function(){var bar=$("#foliobar"),tb=$("#tocBtn");if(!bar||!tb||$("#v50Lang"))return;var w=el("div","fb-right"),g=el("div","v50-lang");g.id="v50Lang";g.setAttribute("role","group");g.setAttribute("aria-label","Ngôn ngữ / Language");
   [["vi","VI"],["en","EN"]].forEach(function(x){var b=el("button","",x[1]);b.type="button";b.setAttribute("data-l",x[0]);b.setAttribute("aria-pressed",x[0]==="vi"?"true":"false");b.addEventListener("click",function(){lang(x[0]);});g.appendChild(b);});
   bar.insertBefore(w,tb);w.appendChild(g);w.appendChild(tb);
-  $$("#magazineView section[id]").forEach(function(s){if($(".v50-soon",s))return;if(["ban-do","panorama","panorama-goc","panorama-khao-sat","panorama-ket"].indexOf(s.id)>=0)return;var f=$(".folio",s);if(!f)return;var p=el("p","v50-soon","English version coming soon.");f.parentNode.insertBefore(p,f.nextSibling);});
+  $$("#magazineView section[id]").forEach(function(s){if($(".v50-soon",s))return;if(["ban-do","panorama","panorama-goc","panorama-khao-sat","panorama-ket","ninh-van-xanh","gop-y","lich-su","chuyen-lang","anh","mot-ngay","vi-sao","cau-chuyen","muc-luc","guong-mat","can-biet","choi-cung-lang","cam-nang","tu-dien-lang"].indexOf(s.id)>=0)return;var f=$(".folio",s);if(!f)return;var p=el("p","v50-soon","English version coming soon.");f.parentNode.insertBefore(p,f.nextSibling);});
   if(store("nvlLang")==="en")lang("en");})();
 }catch(err){}})();
 </script>
