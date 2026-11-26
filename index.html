@@ -8346,10 +8346,23 @@ function lang(l){var on=l==="en";document.documentElement.setAttribute("data-lan
 ]});
 </script>
 <script>
+/* Từ điển EN — BỔ SUNG phần 21 (vòng sửa EN còn sót: 8 chuỗi tên dịch vụ / sức chứa / khu vực theo bản dịch Co; dòng 3 "Coastal Village" theo từ điển). Dán SAU phần 20, TRƯỚC engine. */
+(window.__NVL_EN_PARTS=window.__NVL_EN_PARTS||[]).push({id:21,chk:"22atqxtuvc3",rows:[
+["SOT",1,"haylhifkab","Trekking to Phù Vân Peak – Panoramic Views of Ninh Vân"],
+["SOT",2,"2b57ni8vkiu","Pier Jumping – A Familiar Pastime for Village Kids"],
+["SOT",3,"17uzgqh1xi3","Ninh Vân Coastal Village Educational Experience – 3 Discovery Stations"],
+["SOT",4,"fzecj9rujj","2 bedrooms, each with 2 beds. Maximum capacity for the entire house: 10 adults."],
+["SOT",5,"jd6j22f262","Private groups of up to 5 people"],
+["SOT",6,"27hohz5r9vu","The sample programme divides participants into teams of approximately 5–7 students each; the total group size must be agreed upon before the event."],
+["SOT",7,"1de5xrc77mm","Bến cá Ninh Vân · Lăng Nam Hải · C235 Historical Site – Hòn Hèo"],
+["SOT",8,"280opuljhb0","A three-station journey: Bến cá Ninh Vân → Lăng Nam Hải → C235 No-Number Ship Historical Site"]
+]});
+</script>
+<script>
 /* ===== Đầm Vân — EN toàn tạp chí v4 (Cà) — THAY khối EN v3 (xóa v3, không giữ cả hai). Dán SAU các khối "Từ điển EN" (phần 1..8), trước </body> CUỐI CÙNG, sau JS V50 + JS bản đồ. Không có CSS. ===== */
 (function(){"use strict";try{
 var DEEP=document.documentElement,ROOTS=[];
-var EXPECT_ROWS=1250,EXPECT_PARTS=20;
+var EXPECT_ROWS=1257,EXPECT_PARTS=21;
 function N(s){return String(s).replace(/\u2060/g,"").replace(/\s+/g," ").trim();}
 function K(s){return N(s).replace(/[“”„]/g,'"').replace(/[‘’]/g,"'");}
 function H53(s){var h1=0xdeadbeef,h2=0x41c6ce57,i,c;for(i=0;i<s.length;i++){c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677);}
@@ -8428,7 +8441,7 @@ var REV={},AMB={};[D,PROV].forEach(function(o){Object.keys(o).forEach(function(k
 /* ---- 2b. NHÃN KHU VỰC (chỉ để HIỂN THỊ; không sửa CMS) ---- */
 var AREA={
 "Biển Ninh Vân":"Ninh Vân waters","Bãi Chướng – Bãi Giữa – Bãi Cây Bàng":"Bãi Chướng – Bãi Giữa – Bãi Cây Bàng","Bãi Cây Găng":"Bãi Cây Găng","Bãi Trung Tâm – cầu cảng cũ":"Bãi Trung Tâm – old pier","Bãi biển Trung Tâm":"Central beach area",
-"Bến cá Ninh Vân · Lăng Nam Hải · Di tích C235 – Hòn Hèo":"Ninh Vân fishing landing · Lăng Nam Hải · C235 historical site – Hòn Hèo",
+"Bến cá Ninh Vân · Lăng Nam Hải · Di tích C235 – Hòn Hèo":"Bến cá Ninh Vân · Lăng Nam Hải · C235 Historical Site – Hòn Hèo",
 "Gần chợ":"Near the market","Gần cổng làng":"Near the village entrance","Hòn Hèo – khu di tích C235":"Hòn Hèo – C235 historical site","Khu chợ Ninh Vân":"Ninh Vân market area","Khu chợ trong làng":"Village market area","Khu cầu cảng":"Pier area","Khu vực Cầu Cảng":"Pier area","Ngoài khơi":"Offshore",
 "Ngã ba đường đi ra Ủy ban":"Junction on the road to the local government office","Ninh Vân":"Ninh Vân","Ninh Vân – Khánh Hòa":"Ninh Vân – Khánh Hòa","Ninh Vân – chợ làng":"Ninh Vân – village market","Ninh Vân – khu Bến Đò Xưa":"Ninh Vân – Bến Đò Xưa area","Ninh Vân – khu vực núi":"Ninh Vân – mountain area","Ninh Vân – trong làng":"Ninh Vân – within the village",
 "Ninh Vân – trong làng, ven biển và các điểm phù hợp theo lịch chụp":"Ninh Vân – around the village, along the coast and at locations suited to the photo schedule",
