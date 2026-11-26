@@ -140,6 +140,13 @@
         text-shadow:0 4px 44px rgba(0,0,0,.35);
       }
       .masthead h1 em{font-style:italic;font-weight:600}
+      .masthead .mast-note{
+        display:block;max-width:38em;margin:16px auto 0;padding:10px 14px;min-height:44px;
+        font-family:var(--sans);font-weight:400;font-size:clamp(.78rem,2.6vw,.92rem);
+        letter-spacing:.03em;line-height:1.6;color:rgba(251,246,233,.82);
+        text-decoration:none;text-shadow:0 1px 12px rgba(0,0,0,.4);
+      }
+      .masthead .mast-note:hover,.masthead .mast-note:focus-visible{text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(251,246,233,.55)}
       .cover-spacer{flex:1}
       .cover-bottom{position:relative;z-index:2;padding:0 20px 26px;max-width:1240px;width:100%;margin:0 auto}
       .cover-kicker{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;display:inline-block;background:rgba(7,17,14,.95);padding:5px 10px;border-radius:2px}
@@ -998,6 +1005,7 @@ html[data-lang="en"] .bm .bm-chips .fl{display:inline}html[data-lang="en"] .bm .
         <p class="mast-kicker">Tạp chí của <b>làng biển Ninh Vân</b></p>
         <div class="mast-rule" aria-hidden="true"></div>
         <h1>“Đầm <em>Vân</em>”</h1>
+        <a class="mast-note" href="#lich-su">“Đầm” là cách đọc trại của “Đàm”. Câu chuyện của cái tên này nằm ở Lịch sử làng →</a>
       </div>
 
       <div class="cover-story">
@@ -8415,10 +8423,14 @@ function lang(l){var on=l==="en";document.documentElement.setAttribute("data-lan
 (window.__NVL_EN_PARTS=window.__NVL_EN_PARTS||[]).push({id:22,chk:"143w4u6pxlt",rows:[["22",1,"1a3x87dgtj2","Onion flowers are in bloom now (observed November 2026), with the fullest bloom around January. When crops are present, view them only from the paths; do not step into the fields to take photos."]]});
 </script>
 <script>
+/* Từ điển EN — BỔ SUNG phần 23 (dòng giải thích tên “Đầm Vân” ngay dưới tiêu đề bìa: “Đầm” là cách đọc trại của “Đàm”). Dán SAU phần 22, TRƯỚC engine. */
+(window.__NVL_EN_PARTS=window.__NVL_EN_PARTS||[]).push({id:23,chk:"1meeqainhov",rows:[["23",1,"dtwfn5jqdw","“Đầm” is the local reading of “Đàm”. The story behind the name is in Village History →"]]});
+</script>
+<script>
 /* ===== Đầm Vân — EN toàn tạp chí v4 (Cà) — THAY khối EN v3 (xóa v3, không giữ cả hai). Dán SAU các khối "Từ điển EN" (phần 1..8), trước </body> CUỐI CÙNG, sau JS V50 + JS bản đồ. Không có CSS. ===== */
 (function(){"use strict";try{
 var DEEP=document.documentElement,ROOTS=[];
-var EXPECT_ROWS=1258,EXPECT_PARTS=22;
+var EXPECT_ROWS=1259,EXPECT_PARTS=23;
 function N(s){return String(s).replace(/\u2060/g,"").replace(/\s+/g," ").trim();}
 function K(s){return N(s).replace(/[“”„]/g,'"').replace(/[‘’]/g,"'");}
 function H53(s){var h1=0xdeadbeef,h2=0x41c6ce57,i,c;for(i=0;i<s.length;i++){c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677);}
