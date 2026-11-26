@@ -6379,7 +6379,7 @@ if(id==="DV022"){var pills=dv.querySelector(".pills");if(pills&&!dv.querySelecto
   var CLOSE_SCRIPT="</scr"+"ipt>";
   var VIEW_CSS={
     common:"body>.wrap>p:first-child{display:none}.play-grid{grid-template-columns:1fr!important}body>.wrap{padding:0 6px!important}body>.wrap>section.wrap{padding:12px 6px 24px!important;margin:0!important}",
-    passport:"body>.wrap>section:nth-of-type(n+2){display:none}body>.wrap>section:nth-of-type(1)>.sec-head{display:none}.play-grid>.play-card:nth-child(-n+2){display:none}.pp-box{margin-top:22px;padding:16px;border-radius:16px;background:#F7F2E7;color:#1E2A2A}.pp-box h3{font-size:20px;margin:0 0 10px;color:#0F4C4C}",
+    passport:"body>.wrap>section:nth-of-type(n+2){display:none}body>.wrap>section:nth-of-type(1)>.sec-head{display:none}.play-grid>.play-card:nth-child(-n+2){display:none}.pp-box{margin-top:22px;padding:16px;border-radius:16px;background:#F7F2E7;color:#1E2A2A}.pp-box h3{font-size:20px;margin:0 0 10px;color:#0F4C4C}.gift-box{margin-top:16px;padding:16px;border-radius:16px;background:#F7F2E7;color:#1E2A2A;border:1.5px dashed #0F4C4C}.gift-box h3{font-size:20px;margin:0 0 8px;color:#0F4C4C}.gift-box h4{font-size:15px;margin:14px 0 6px;color:#0F4C4C}.gift-trial{margin:0 0 8px;font-size:14px;line-height:1.55}.gift-note{margin:0 0 12px;font-size:14px;line-height:1.55;font-style:italic;color:#5E6B68}.gift-prog{margin:0 0 6px;font-size:15px}.gift-prog strong{font-size:21px;color:#0F4C4C}.gift-bar{height:10px;border-radius:6px;background:#DCE2D8;overflow:hidden}.gift-bar-fill{height:100%;width:0;background:#0F4C4C;border-radius:6px;transition:width .4s ease}.gift-state{margin:6px 0 0;font-size:13.5px;line-height:1.45;color:#5E6B68}.gift-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.6}.gift-list em{font-style:normal;font-size:12.5px;color:#8A6D1F}.gift-rules{margin:0;padding-left:20px;font-size:14px;line-height:1.6}.gift-fine{margin:6px 0 0;font-size:12.5px;line-height:1.45;color:#5E6B68}.gift-box [hidden]{display:none}",
     quiz:"body>.wrap>section:nth-of-type(1),body>.wrap>section:nth-of-type(3){display:none}"
   };
   var PP_ANCHOR='<div class="stamp-done" id="stampDone" aria-live="polite"></div>';
@@ -6416,6 +6416,67 @@ if(id==="DV022"){var pills=dv.querySelector(".pills");if(pills&&!dv.querySelecto
     "setInterval(function(){ try{ PP.stampedIds().forEach(ensure); }catch(e){} },5000);",
     "})();"
   ].join("\n");
+  /* ----- mục "Quà của làng" trong màn hộ chiếu: chỉ THÊM sau hộp đóng dấu
+     bằng ảnh. Tiến độ đếm dấu đóng bằng ảnh thật của khách qua
+     NVLPassportPhoto.status(id)==="stamped" (đúng nghĩa dấu có ảnh của
+     ppState ở trang cha), cập nhật theo sự kiện nvl:stamp + quét lại mỗi
+     3 giây. Quà là QUÀ MẪU: chưa nhà nào xác nhận tham gia. Không có nút
+     nhận mã — mã dùng 1 lần và ghi nhận ngoài máy khách là việc của giai
+     đoạn thử nghiệm thật, bản demo chỉ mô tả cách nhận. Chỉ tiếng Việt. ----- */
+  var GIFT_HTML='<div class="gift-box" id="giftBox">'
+    +'<h3 class="serif">Quà của làng</h3>'
+    +'<p class="gift-trial"><strong>Đang thử nghiệm — chưa chính thức.</strong> Chương trình quà này còn đang thử nghiệm, vì làng chưa thảo luận xong với người làng. Danh sách dưới đây chỉ là quà mẫu để bàn bạc; quà có thể đổi hoặc ngừng, không đảm bảo.</p>'
+    +'<p class="gift-note">Dấu không ảnh vẫn tính vào hộ chiếu, chỉ dấu có ảnh mới mở quà.</p>'
+    +'<p class="gift-prog"><strong id="giftCount">0</strong><span id="giftTarget">/10</span> dấu có ảnh</p>'
+    +'<div class="gift-bar"><div class="gift-bar-fill" id="giftBarFill"></div></div>'
+    +'<p class="gift-state" id="giftState"></p>'
+    +'<div id="giftMenu10" hidden>'
+    +'<h4>Đủ 10 dấu có ảnh — chọn 1 món</h4>'
+    +'<ul class="gift-list">'
+    +'<li>1 ly nước chào mừng <em>· quà mẫu</em></li>'
+    +'<li>Giảm 10% đêm đầu — “lời chào của làng” <em>· quà mẫu</em></li>'
+    +'<li>1 món tráng miệng <em>· quà mẫu</em></li>'
+    +'<li>1 ghế đi ghe <em>· quà mẫu</em></li>'
+    +'<li>1 quà lưu niệm nhỏ <em>· quà mẫu</em></li>'
+    +'</ul>'
+    +'<p class="gift-fine">Quà mẫu — chưa nhà nào xác nhận tham gia. Mốc 10 thả lỏng, làng chỉ kiểm ngẫu nhiên.</p>'
+    +'</div>'
+    +'<div id="giftMenu16" hidden>'
+    +'<h4>Đủ 16 dấu có ảnh — chọn thêm 1 món lớn</h4>'
+    +'<ul class="gift-list">'
+    +'<li>1 bữa ăn miễn phí cho 2 người <em>· quà mẫu</em></li>'
+    +'<li>Giảm 50% 1 đêm lưu trú <em>· quà mẫu</em></li>'
+    +'<li>1 buổi trải nghiệm miễn phí <em>· quà mẫu</em></li>'
+    +'</ul>'
+    +'<p class="gift-fine">Quà mẫu — chưa nhà nào xác nhận tham gia. Mốc 16, đội làng duyệt tay đủ 16 ảnh trước khi nhận.</p>'
+    +'</div>'
+    +'<h4>Cách nhận quà</h4>'
+    +'<ul class="gift-rules">'
+    +'<li>Mỗi khách nhận 1 lượt ở mỗi mốc (mốc 10 dấu và mốc 16 dấu).</li>'
+    +'<li>Nhận trực tiếp tại nơi tặng: đưa hộ chiếu cho chủ quán xem, chủ quán xác nhận đã trao.</li>'
+    +'<li>1 ảnh chỉ tính cho 1 dấu.</li>'
+    +'</ul>'
+    +'</div>';
+  var GIFT=[
+    "(function(){",
+    "var PP=window.NVLPassportPhoto; if(!PP) return;",
+    "var cEl=document.getElementById('giftCount'),tEl=document.getElementById('giftTarget'),fEl=document.getElementById('giftBarFill'),sEl=document.getElementById('giftState'),m10=document.getElementById('giftMenu10'),m16=document.getElementById('giftMenu16');",
+    "if(!cEl||!m10||!m16) return;",
+    "function count(){ var n=0,i; try{ for(i=0;i<PP.ids.length;i++){ if(PP.status(PP.ids[i])==='stamped') n++; } }catch(e){} return n; }",
+    "function render(){",
+    "var n=count(), target=n<10?10:16;",
+    "cEl.textContent=String(Math.min(n,target)); tEl.textContent='/'+target;",
+    "fEl.style.width=Math.round(Math.min(n,target)/target*100)+'%';",
+    "if(n<10){ sEl.textContent='Menu quà đang khóa. Còn '+(10-n)+' dấu có ảnh nữa là mở quà mốc 10.'; }",
+    "else if(n<16){ sEl.textContent='Đã mở quà mốc 10. Còn '+(16-n)+' dấu có ảnh nữa là tới quà lớn mốc 16.'; }",
+    "else { sEl.textContent='Đã mở cả quà mốc 10 và quà lớn mốc 16.'; }",
+    "m10.hidden=n<10; m16.hidden=n<16;",
+    "}",
+    "document.addEventListener('nvl:stamp',render);",
+    "render();",
+    "setInterval(render,3000);",
+    "})();"
+  ].join("\n");
   function buildDoc(g){
     var s=src()[g.src]; if(!s) return "";
     if(g.src!=="batro") return s;
@@ -6427,8 +6488,8 @@ if(id==="DV022"){var pills=dv.querySelector(".pills");if(pills&&!dv.querySelecto
 
       if(s.indexOf(END_MARK)>=0) s=s.replace(END_MARK,function(){ return END_NEW; });
       if(s.indexOf(PP_ANCHOR)>=0 && ppjs){
-        s=s.replace(PP_ANCHOR,function(){ return PP_ANCHOR+'<div class="pp-box"><h3 class="serif">Đóng dấu bằng ảnh của bạn</h3><div id="pp"></div></div>'; });
-        s=s.replace("</body>",function(){ return "<script>"+ppjs+CLOSE_SCRIPT+"<script>"+GLUE+CLOSE_SCRIPT+"<script>"+THUMB+CLOSE_SCRIPT+"</body>"; });
+        s=s.replace(PP_ANCHOR,function(){ return PP_ANCHOR+'<div class="pp-box"><h3 class="serif">Đóng dấu bằng ảnh của bạn</h3><div id="pp"></div></div>'+GIFT_HTML; });
+        s=s.replace("</body>",function(){ return "<script>"+ppjs+CLOSE_SCRIPT+"<script>"+GLUE+CLOSE_SCRIPT+"<script>"+THUMB+CLOSE_SCRIPT+"<script>"+GIFT+CLOSE_SCRIPT+"</body>"; });
       }
     }
     return s;
